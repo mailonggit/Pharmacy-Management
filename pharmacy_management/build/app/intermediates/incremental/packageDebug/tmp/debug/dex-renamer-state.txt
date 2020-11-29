@@ -1,0 +1,4 @@
+#Sun Nov 29 10:12:17 ICT 2020
+base.0=L\:\\University\\Sem1-2020-2021\\Software Engineering\\Project\\Pharmacy-Management\\pharmacy_management\\build\\app\\intermediates\\transforms\\dexMerger\\debug\\0
+path.0=classes.dex
+renamed.0=classes.dex
