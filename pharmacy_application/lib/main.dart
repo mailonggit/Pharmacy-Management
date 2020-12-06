@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pharmacy_application/screens/home/home_screen.dart';
 import 'package:pharmacy_application/screens/welcome/welcome.dart';
 
 void main() => runApp(MyApp());
@@ -13,7 +14,7 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: Welcome(),
+      home: HomeScreen(),
     );
   }
 }
