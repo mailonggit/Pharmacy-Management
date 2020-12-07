@@ -1,11 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:pharmacy_application/components/app_drawer.dart';
+import 'package:pharmacy_application/components/badge.dart';
+import 'package:pharmacy_application/providers/cart_provider.dart';
+import 'package:pharmacy_application/screens/CartScreen.dart';
 import 'package:pharmacy_application/screens/home/body.dart';
+import 'package:provider/provider.dart';
 
 class HomeScreen extends StatelessWidget {
+  static const routeName = '/home-screen';
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.indigo[900],
       appBar: buildAppBar(),
+      drawer: AppDrawer(),
       body: Body(),
     );
   }
@@ -13,21 +21,23 @@ class HomeScreen extends StatelessWidget {
 
 buildAppBar() {
   return AppBar(
-    backgroundColor: Colors.blue[200],
+    backgroundColor: Colors.indigo[900],
     elevation: 0,
-    leading: IconButton(
-      icon: Icon(
-        Icons.arrow_back,
-      ),
-      onPressed: () {},
-    ),
     actions: <Widget>[
-      IconButton(
-        icon: Icon(
-          Icons.shopping_cart,
+      //shopping cart button
+      Consumer<CartProvider>(
+        builder: (_, cart, ch) => Badge(
+          child: ch,
+          value: cart.itemCount.toString(),
         ),
-        onPressed: () {},
+        child: IconButton(
+          icon: Icon(Icons.shopping_cart),
+          onPressed: () {
+            print('press');
+            //Navigator.of(context).pushNamed(CartScreen.routeName);
+          },
+        ),
       ),
     ],
-  );  
+  );
 }

@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:pharmacy_application/providers/product.dart';
+import 'package:pharmacy_application/components/badge.dart';
+import 'package:pharmacy_application/providers/cart_provider.dart';
+import 'package:pharmacy_application/screens/CartScreen.dart';
 import 'package:pharmacy_application/screens/product_detail/body.dart';
-
+import 'package:provider/provider.dart';
 
 class ProductDetail extends StatelessWidget {
-  final Product product;
-
-  ProductDetail({this.product});
-
+  static const routeName = '/product-detail';
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -20,11 +19,26 @@ class ProductDetail extends StatelessWidget {
           onPressed: () => Navigator.pop(context),
         ),
         actions: <Widget>[
-          SizedBox(width: 10,),
-          IconButton(icon: Icon(Icons.shopping_cart), onPressed: (){})
+          SizedBox(
+            width: 10,
+          ),
+          //shopping cart button
+          Consumer<CartProvider>(
+            builder: (_, cart, ch) => Badge(
+              child: ch,
+              value: cart.itemCount.toString(),
+            ),
+            child: IconButton(
+              icon: Icon(Icons.shopping_cart),
+              onPressed: () {
+                print('press');
+                Navigator.of(context).pushNamed(CartScreen.routeName);
+              },
+            ),
+          ),
         ],
       ),
-      body: Body(product: product,),
+      body: Body(),
     );
   }
 }
