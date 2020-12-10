@@ -46,6 +46,12 @@ class AppDrawer extends StatelessWidget {
           ),
           Divider(),
           SelectionTile(
+            icon: Icons.favorite,
+            text: 'Favorite List',
+            press: () {},
+          ),
+          Divider(),
+          SelectionTile(
             icon: Icons.lock,
             text: 'Log Out',
             press: () {},

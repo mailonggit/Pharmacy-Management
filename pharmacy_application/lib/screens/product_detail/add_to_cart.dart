@@ -7,10 +7,12 @@ class AddToCart extends StatelessWidget {
   final String id;
   final double price;
   final String title;
-  AddToCart({this.id, this.price, this.title});
+  final String image;
+  final int quantity;
+  AddToCart({this.id, this.price, this.title, this.image, this.quantity});
   @override
   Widget build(BuildContext context) {
-    final cart = Provider.of<CartProvider>(context, listen: false);    
+    final cart = Provider.of<CartProvider>(context, listen: false);
 
     return Padding(
       padding: const EdgeInsets.all(8.0),
@@ -33,8 +35,17 @@ class AddToCart extends StatelessWidget {
                 color: Colors.red[900],
               ),
               onPressed: () {
-                print('press');
-                cart.addItem(this.id, this.price, this.title);
+                print('information: ' +
+                    this.title +
+                    ", quantity: " +
+                    this.quantity.toString());
+                cart.addItem(
+                  this.id,
+                  this.price,
+                  this.title,
+                  this.image,
+                  this.quantity,
+                );
                 Scaffold.of(context).hideCurrentSnackBar();
                 Scaffold.of(context).showSnackBar(
                   SnackBar(
@@ -43,6 +54,7 @@ class AddToCart extends StatelessWidget {
                       textAlign: TextAlign.center,
                     ),
                     duration: Duration(seconds: 2),
+                    backgroundColor: Colors.green,
                     // action: SnackBarAction(
                     //   label: 'Undo',
                     //   onPressed: () {

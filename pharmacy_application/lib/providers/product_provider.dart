@@ -34,6 +34,10 @@ class ProductProvider with ChangeNotifier {
       image: 'assets/images/medicine-5.png',
     ),
   ];
+  List<Product> get favoriteItems {
+    return _products.where((prodItem) => prodItem.isFavorite).toList();
+  }
+
   List<Product> get products {
     return [..._products];
   }

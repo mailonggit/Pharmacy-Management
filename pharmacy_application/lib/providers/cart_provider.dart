@@ -5,15 +5,14 @@ class CartItem {
   final String title;
   final int quantity;
   final double price;
+  final String image;
   CartItem({
     @required this.id,
     @required this.title,
     @required this.quantity,
     @required this.price,
+    @required this.image,
   });
-  void set quantity(int amount) {
-    this.quantity = amount;
-  }
 }
 
 class CartProvider with ChangeNotifier {
@@ -31,31 +30,36 @@ class CartProvider with ChangeNotifier {
   double get totalAmount {
     var total = 0.0;
 
-    _items.forEach((key, cartIttem) {
+    _items.forEach((item, cartIttem) {
+      print('quantity: ' + cartIttem.quantity.toString());
       total += cartIttem.price * cartIttem.quantity;
     });
     return total;
   }
 
-  void addItem(String productId, double price, String title) {
+  void addItem(String productId, double price, String title, String image,
+      int newQuantity) {
     if (_items.containsKey(productId)) {
+      print('update product');
       _items.update(
           productId,
           (existingItem) => CartItem(
                 id: existingItem.id,
                 title: existingItem.title,
-                quantity: existingItem.quantity + 1,
+                quantity: newQuantity + 1,
                 price: existingItem.price,
+                image: existingItem.image,
               ));
     } else {
-      print('add product');
+      print('add new product');
       _items.putIfAbsent(
         productId,
         () => CartItem(
           id: DateTime.now().toString(),
           title: title,
           price: price,
-          quantity: 1,
+          quantity: newQuantity,
+          image: image,
         ),
       );
     }

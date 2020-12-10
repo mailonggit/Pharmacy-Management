@@ -6,18 +6,33 @@ class Product with ChangeNotifier {
   final String description;
   final double price;
   final String image;
+  int quantity;
   bool isFavorite;
   Product({
-    @required this.id,
-    @required this.title,
+    this.id,
+    this.title,
     this.description = dummyDescription,
-    @required this.price,
-    @required this.image,
+    this.price,
+    this.image,
+    this.quantity = 1,
     this.isFavorite = false,
   });
 
   void _setFavoriteStatus(bool status) {
     this.isFavorite = status;
+    notifyListeners();
+  }
+
+  void setQuantity(int quantity) {
+    this.quantity = quantity;
+    notifyListeners();
+  }
+
+  void toggleFavoriteStatus() {
+    //final oldStatus = this.isFavorite; //store previous favorite status
+    this.isFavorite = !this
+        .isFavorite; //update new status after user clicking the favorite icon
+    //_setFavoriteStatus(!this.isFavorite);
     notifyListeners();
   }
 }
