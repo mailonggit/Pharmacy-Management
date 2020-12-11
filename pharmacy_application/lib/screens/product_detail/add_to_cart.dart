@@ -35,10 +35,6 @@ class AddToCart extends StatelessWidget {
                 color: Colors.red[900],
               ),
               onPressed: () {
-                print('information: ' +
-                    this.title +
-                    ", quantity: " +
-                    this.quantity.toString());
                 cart.addItem(
                   this.id,
                   this.price,
@@ -55,12 +51,6 @@ class AddToCart extends StatelessWidget {
                     ),
                     duration: Duration(seconds: 2),
                     backgroundColor: Colors.green,
-                    // action: SnackBarAction(
-                    //   label: 'Undo',
-                    //   onPressed: () {
-                    //     cart.removeSingleItem(product.id);
-                    //   },
-                    // ),
                   ),
                 );
               },

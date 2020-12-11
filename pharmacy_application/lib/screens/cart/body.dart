@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pharmacy_application/providers/cart_provider.dart'
     show CartProvider;
+import 'package:pharmacy_application/providers/order_provider.dart';
 import 'package:pharmacy_application/screens/cart/cart_item.dart';
 import 'package:provider/provider.dart';
 
@@ -11,7 +12,9 @@ class Body extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final cart = Provider.of<CartProvider>(context, listen: false);
+    final cart = Provider.of<CartProvider>(context,
+        listen: true); // rebult this widget when changes occur
+    //It's took me so long to fix this bug
     return SingleChildScrollView(
       scrollDirection: Axis.vertical,
       child: Column(
@@ -38,6 +41,7 @@ class Body extends StatelessWidget {
               itemCount: cart.items.length,
               itemBuilder: (ctx, i) => CartItem(
                 id: cart.items.values.toList()[i].id,
+                productId: cart.items.keys.toList()[i],
                 title: cart.items.values.toList()[i].title,
                 quantity: cart.items.values.toList()[i].quantity,
                 price: cart.items.values.toList()[i].price,
@@ -87,11 +91,20 @@ class Body extends StatelessWidget {
                 child: Text(
                   "Order Now",
                   style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 18.0,
-                      color: Colors.white),
+                    fontWeight: FontWeight.bold,
+                    fontSize: 18.0,
+                    color: Colors.white,
+                  ),
                 ),
-                onPressed: () {},
+                onPressed: () {                  
+                  Provider.of<OrderProvider>(context, listen: false).addOrder(
+                    cart.items.values.toList(),
+                    cart.totalAmount,
+                  );
+                  
+                  print('order successfully');
+                  cart.clear();
+                },
               ),
             ),
           ),

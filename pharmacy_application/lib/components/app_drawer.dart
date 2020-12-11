@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:pharmacy_application/screens/home/home_screen.dart';
+import 'package:pharmacy_application/screens/order/order_screen.dart';
 
 class AppDrawer extends StatelessWidget {
   @override
@@ -35,20 +37,16 @@ class AppDrawer extends StatelessWidget {
             icon: Icons.shop,
             text: 'Shop',
             press: () {
-              Navigator.pop(context);
+              Navigator.of(context).pushReplacementNamed('/');
             },
           ),
           Divider(),
           SelectionTile(
             icon: Icons.shopping_cart,
             text: 'Your Order',
-            press: () {},
-          ),
-          Divider(),
-          SelectionTile(
-            icon: Icons.favorite,
-            text: 'Favorite List',
-            press: () {},
+            press: () {
+              Navigator.of(context).pushReplacementNamed(OrderScreen.routeName);
+            },
           ),
           Divider(),
           SelectionTile(

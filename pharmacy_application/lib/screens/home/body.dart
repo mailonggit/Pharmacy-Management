@@ -28,8 +28,9 @@ class Body extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
             child: GridView.builder(
               itemCount: products.length,
-              itemBuilder: (ctx, i) => ChangeNotifierProvider(
-                create: (c) => products[i],
+              //fix a product was used after being disposed
+              itemBuilder: (ctx, i) => ChangeNotifierProvider.value(
+                value: products[i],
                 child: ProductItem(),
               ),
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(

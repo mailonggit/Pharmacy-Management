@@ -11,7 +11,6 @@ class Body extends StatelessWidget {
     final productId = ModalRoute.of(context).settings.arguments as String;
     final loadedProduct = Provider.of<ProductProvider>(context, listen: false)
         .findById(productId);
-    int quantity;
     Size size = MediaQuery.of(context).size;
     return SingleChildScrollView(
       child: Column(
