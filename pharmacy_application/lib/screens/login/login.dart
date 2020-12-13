@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:pharmacy_application/screens/login/body.dart';
 
-
 class Login extends StatelessWidget {
+  static const routeName = '/login';
   @override
   Widget build(BuildContext context) {
     return Scaffold(

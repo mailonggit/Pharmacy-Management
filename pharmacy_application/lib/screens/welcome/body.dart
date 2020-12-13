@@ -25,24 +25,26 @@ class Body extends StatelessWidget {
             // SizedBox(
             //   height: size.height * 0.03,
             // ),
-            Image.asset('assets/images/logo.png', width: size.width * 0.5,),
-            RoundedButton(
-              text: 'Login',
-              click: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context) {
-                  return Login();
-                }));
-              },
-              color: Colors.blue[800],
+            Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: Image.asset('assets/images/doctor_other.png', width: size.width * 0.5,),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: RoundedButton(
+                text: 'Login',
+                press: () {
+                  Navigator.of(context).pushReplacementNamed(Login.routeName);
+                },
+                color: Colors.blue[800],
+              ),
             ),
             RoundedButton(
               text: 'Sign Up',
-              click: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context) {
-                  return SignUp();
-                }));
+              press: () {
+                Navigator.of(context).pushReplacementNamed(SignUp.routeName);
               },
-              color: Colors.green[900],
+              color: Colors.red[900],
             ),
           ],
         ),

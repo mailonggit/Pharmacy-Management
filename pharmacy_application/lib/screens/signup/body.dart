@@ -14,20 +14,35 @@ class Body extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Text("Signup image"),
-            RoundedInputField(),
-            RoundedPasswordField(),
+            Padding(
+              padding: const EdgeInsets.only(bottom: 15.0),
+              child: Image.asset('assets/images/7.png'),
+            ),
+            RoundedInputField(
+              hintText: 'Your Full Name',
+              onChanged: (value) {},
+            ),
+            RoundedInputField(
+              hintText: 'Your Username',
+              onChanged: (value) {},
+            ),
+            RoundedPasswordField(
+              hintText: 'Password',
+              onChanged: (value) {},
+            ),
+            RoundedPasswordField(
+              hintText: 'Password Again',
+              onChanged: (value) {},
+            ),
             RoundedButton(
               text: 'Sign Up',
-              color: Colors.green[600],
-              click: () {},
+              color: Colors.red[900],
+              press: () {},
             ),
             AlreadyHaveAnAccount(
               haveAccount: false,
               click: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context) {
-                  return Login();
-                }));
+                Navigator.of(context).pushReplacementNamed(Login.routeName);
               },
             )
           ],

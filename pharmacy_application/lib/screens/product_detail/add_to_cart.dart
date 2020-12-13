@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pharmacy_application/providers/cart_provider.dart';
+import 'package:pharmacy_application/providers/order_provider.dart';
 import 'package:pharmacy_application/providers/product.dart';
 import 'package:provider/provider.dart';
 
@@ -46,11 +47,15 @@ class AddToCart extends StatelessWidget {
                 Scaffold.of(context).showSnackBar(
                   SnackBar(
                     content: Text(
-                      'Added item to cart!',
+                      'Added Item To Cart! Please Visit Shopping Cart To See Your List ',
                       textAlign: TextAlign.center,
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 20,
+                      ),
                     ),
-                    duration: Duration(seconds: 2),
-                    backgroundColor: Colors.green,
+                    duration: Duration(seconds: 5),
+                    backgroundColor: Colors.red[900],
                   ),
                 );
               },
@@ -64,7 +69,37 @@ class AddToCart extends StatelessWidget {
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(18),
                 ),
-                onPressed: () {},
+                onPressed: () {
+                  //add this item
+                  cart.addItem(
+                    this.id,
+                    this.price,
+                    this.title,
+                    this.image,
+                    this.quantity,
+                  );
+                  //add to order
+                  Provider.of<OrderProvider>(context, listen: false).addOrder(
+                    cart.items.values.toList(),
+                    cart.totalAmount,
+                  );
+                  Scaffold.of(context).hideCurrentSnackBar();
+                  Scaffold.of(context).showSnackBar(
+                    SnackBar(
+                      content: Text(
+                        'Order Successfully, Please visit Your Order To See It',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 20,
+                        ),
+                      ),
+                      duration: Duration(seconds: 5),
+                      backgroundColor: Colors.green,
+                    ),
+                  );
+                  cart.clear();
+                },
                 color: Colors.blue[900],
                 child: Text(
                   'Buy Now'.toUpperCase(),

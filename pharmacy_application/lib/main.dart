@@ -5,8 +5,12 @@ import 'package:pharmacy_application/providers/product.dart';
 import 'package:pharmacy_application/providers/product_provider.dart';
 import 'package:pharmacy_application/screens/cart/cart_screen.dart';
 import 'package:pharmacy_application/screens/home/home_screen.dart';
+import 'package:pharmacy_application/screens/login/login.dart';
+import 'package:pharmacy_application/screens/manage/edit_product_screen.dart';
+import 'package:pharmacy_application/screens/manage/manage_product.dart';
 import 'package:pharmacy_application/screens/order/order_screen.dart';
 import 'package:pharmacy_application/screens/product_detail/product_detail.dart';
+import 'package:pharmacy_application/screens/signup/signup.dart';
 import 'package:pharmacy_application/screens/welcome/welcome.dart';
 import 'package:provider/provider.dart';
 
@@ -38,12 +42,16 @@ class _MyAppState extends State<MyApp> {
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        home: HomeScreen(),
+        home: Welcome(),
         routes: {
           HomeScreen.routeName: (ctx) => HomeScreen(),
           ProductDetail.routeName: (ctx) => ProductDetail(),
           CartScreen.routeName: (ctx) => CartScreen(),
           OrderScreen.routeName: (ctx) => OrderScreen(),
+          Login.routeName: (ctx) => Login(),
+          SignUp.routeName: (ctx) => SignUp(),
+          EditProductScreen.routeName: (ctx) => EditProductScreen(),
+          ManageProductScreen.routeName: (ctx) => ManageProductScreen(),
         },
       ),
     );

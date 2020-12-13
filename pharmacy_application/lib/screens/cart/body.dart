@@ -96,13 +96,23 @@ class Body extends StatelessWidget {
                     color: Colors.white,
                   ),
                 ),
-                onPressed: () {                  
+                onPressed: () {
                   Provider.of<OrderProvider>(context, listen: false).addOrder(
                     cart.items.values.toList(),
                     cart.totalAmount,
                   );
-                  
-                  print('order successfully');
+                  Scaffold.of(context).hideCurrentSnackBar();
+                  Scaffold.of(context).showSnackBar(
+                    SnackBar(
+                      content: Text(
+                        'Order Successfully, Please visit Your Order To See It',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+                      ),
+                      duration: Duration(seconds: 5),
+                      backgroundColor: Colors.green,
+                    ),
+                  );
                   cart.clear();
                 },
               ),

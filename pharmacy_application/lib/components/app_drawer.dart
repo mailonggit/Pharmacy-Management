@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pharmacy_application/screens/home/home_screen.dart';
+import 'package:pharmacy_application/screens/manage/edit_product_screen.dart';
+import 'package:pharmacy_application/screens/manage/manage_product.dart';
 import 'package:pharmacy_application/screens/order/order_screen.dart';
 
 class AppDrawer extends StatelessWidget {
@@ -37,15 +39,31 @@ class AppDrawer extends StatelessWidget {
             icon: Icons.shop,
             text: 'Shop',
             press: () {
-              Navigator.of(context).pushReplacementNamed('/');
+              Navigator.of(context).pushReplacementNamed(HomeScreen.routeName);
             },
-          ),
+          ),          
           Divider(),
           SelectionTile(
             icon: Icons.shopping_cart,
             text: 'Your Order',
             press: () {
               Navigator.of(context).pushReplacementNamed(OrderScreen.routeName);
+            },
+          ),
+          Divider(),
+          SelectionTile(
+            icon: Icons.add_box,
+            text: 'Create Product',
+            press: () {
+              Navigator.of(context).pushReplacementNamed(EditProductScreen.routeName);
+            },
+          ),
+          Divider(),
+          SelectionTile(
+            icon: Icons.settings,
+            text: 'Manage Medicine',
+            press: () {
+              Navigator.of(context).pushReplacementNamed(ManageProductScreen.routeName);
             },
           ),
           Divider(),
@@ -81,7 +99,7 @@ class SelectionTile extends StatelessWidget {
       title: Text(
         this.text,
         textAlign: TextAlign.left,
-        style: TextStyle(fontWeight: FontWeight.bold),
+        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
       ),
       onTap: this.press,
     );

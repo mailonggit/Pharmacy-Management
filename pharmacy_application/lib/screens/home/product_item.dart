@@ -25,7 +25,7 @@ class ProductItem extends StatelessWidget {
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(10),
               ),
-              child: Image.asset(
+              child: Image.network(
                 product.image,
                 fit: BoxFit.fitWidth,
               ),
