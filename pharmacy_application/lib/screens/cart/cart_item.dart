@@ -54,7 +54,7 @@ class CartItem extends StatelessWidget {
                   borderRadius: BorderRadius.circular(20.0),
                 ),
                 child: this.image != null
-                    ? Image.asset(
+                    ? Image.network(
                         this.image,
                         fit: BoxFit.cover,
                       )

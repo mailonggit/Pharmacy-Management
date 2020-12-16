@@ -32,25 +32,35 @@ class UserProductItem extends StatelessWidget {
           trailing: Container(
             width: 100,
             height: 200,
-            child:                                                                                                                                                                                                                                                                                               Row(
+            child: Row(
               children: <Widget>[
                 Tooltip(
                   message: 'Edit medicine',
                   child: IconButton(
-                    icon: Icon(Icons.edit, size: 30, color: Colors.black,),
+                    icon: Icon(
+                      Icons.edit,
+                      size: 30,
+                      color: Colors.black,
+                    ),
                     onPressed: () {
-                      Navigator.of(context).pushNamed(EditProductScreen.routeName,
+                      Navigator.of(context).pushNamed(
+                          EditProductScreen.routeName,
                           arguments: this.id);
                     },
                   ),
-                ),                
+                ),
                 Tooltip(
                   message: 'Delete medicine',
                   child: IconButton(
-                    icon: Icon(Icons.delete, size: 30, color: Colors.black,),
+                    icon: Icon(
+                      Icons.delete,
+                      size: 30,
+                      color: Colors.black,
+                    ),
                     onPressed: () async {
                       try {
-                        await Provider.of<ProductProvider>(context, listen: false)
+                        await Provider.of<ProductProvider>(context,
+                                listen: false)
                             .deleteProduct(this.id);
                       } catch (error) {
                         scaffold.showSnackBar(SnackBar(

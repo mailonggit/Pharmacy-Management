@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:pharmacy_application/providers/cart_provider.dart'
     show CartProvider;
-import 'package:pharmacy_application/providers/order_provider.dart';
 import 'package:pharmacy_application/screens/cart/cart_item.dart';
+import 'package:pharmacy_application/screens/cart/order_button.dart';
 import 'package:provider/provider.dart';
 
 class Body extends StatelessWidget {
@@ -81,41 +81,7 @@ class Body extends StatelessWidget {
                 const EdgeInsets.symmetric(horizontal: 32.0, vertical: 8.0),
             child: Container(
               width: double.infinity,
-              child: RaisedButton(
-                padding: const EdgeInsets.all(16.0),
-                elevation: 0,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(15.0),
-                ),
-                color: Colors.green[900],
-                child: Text(
-                  "Order Now",
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 18.0,
-                    color: Colors.white,
-                  ),
-                ),
-                onPressed: () {
-                  Provider.of<OrderProvider>(context, listen: false).addOrder(
-                    cart.items.values.toList(),
-                    cart.totalAmount,
-                  );
-                  Scaffold.of(context).hideCurrentSnackBar();
-                  Scaffold.of(context).showSnackBar(
-                    SnackBar(
-                      content: Text(
-                        'Order Successfully, Please visit Your Order To See It',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
-                      ),
-                      duration: Duration(seconds: 5),
-                      backgroundColor: Colors.green,
-                    ),
-                  );
-                  cart.clear();
-                },
-              ),
+              child: OrderButton(cart: cart),
             ),
           ),
         ],
@@ -123,3 +89,5 @@ class Body extends StatelessWidget {
     );
   }
 }
+
+

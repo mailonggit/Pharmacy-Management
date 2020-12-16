@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:pharmacy_application/screens/signup/auth_screen.dart';
 
 class AlreadyHaveAnAccount extends StatelessWidget {
-  final Function click;
-  final bool haveAccount;
+  final Function press;
+  final haveAccount;
   const AlreadyHaveAnAccount({
-    this.haveAccount = true,
-    this.click,
+    this.haveAccount = false,
+    this.press,
     Key key,
   }) : super(key: key);
 
@@ -14,12 +15,12 @@ class AlreadyHaveAnAccount extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,      
       children: <Widget>[
-        Text(this.haveAccount
+        Text(this.haveAccount 
             ? 'Don\'t have an account! '
             : 'Already have an account ', 
             style: TextStyle(fontSize: 15),),
         GestureDetector(
-          onTap: this.click,
+          onTap: this.press,
           child: Text(
             this.haveAccount ? 'Sign Up' : 'Sign In',
             style: TextStyle(

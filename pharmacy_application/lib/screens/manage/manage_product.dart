@@ -20,7 +20,7 @@ class ManageProductScreen extends StatelessWidget {
         title: Text('Medicine List'),
         centerTitle: true,
       ),
-      drawer: AppDrawer(),
+      drawer: AppDrawer(isAdmin: true,),
       body: RefreshIndicator(
         onRefresh: () => _refreshProduct(context),
         child: ListView.builder(

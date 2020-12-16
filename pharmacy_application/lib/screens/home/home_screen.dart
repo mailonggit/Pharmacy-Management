@@ -8,6 +8,8 @@ import 'package:pharmacy_application/screens/home/body.dart';
 import 'package:provider/provider.dart';
 
 class HomeScreen extends StatelessWidget {
+  final bool isAdmin;
+  HomeScreen({this.isAdmin = false});
   static const routeName = '/home-screen';
 
   @override
@@ -33,7 +35,7 @@ class HomeScreen extends StatelessWidget {
           ),
         ],
       ),
-      drawer: AppDrawer(),      
+      drawer: AppDrawer(isAdmin: this.isAdmin,),
       body: Body(),
     );
   }

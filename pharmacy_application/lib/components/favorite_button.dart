@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:pharmacy_application/providers/auth_provider.dart';
 import 'package:pharmacy_application/providers/product.dart';
+import 'package:provider/provider.dart';
 
 class FavoriteButton extends StatefulWidget {
   const FavoriteButton({
@@ -15,17 +17,17 @@ class FavoriteButton extends StatefulWidget {
 
 class _FavoriteButtonState extends State<FavoriteButton> {
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context) {    
     return IconButton(
       icon: Icon(
         widget.loadedProduct.isFavorite
-            ? Icons.favorite
+            ? Icons.favorite 
             : Icons.favorite_border,
         color: Colors.redAccent,
       ),
       onPressed: () {
         setState(() {
-          //update status         
+          //update status
           widget.loadedProduct.toggleFavoriteStatus();
         });
       },

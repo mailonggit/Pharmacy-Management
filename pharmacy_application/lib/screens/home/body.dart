@@ -53,7 +53,7 @@ class _BodyState extends State<Body> {
           ),
         ),
         _isLoading
-            ? Center(
+            ? Center(              
                 child: CircularProgressIndicator(),
               )
             : Expanded(

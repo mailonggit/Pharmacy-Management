@@ -11,6 +11,7 @@ class Body extends StatelessWidget {
     final productId = ModalRoute.of(context).settings.arguments as String;
     final loadedProduct = Provider.of<ProductProvider>(context, listen: false)
         .findById(productId);
+        
     Size size = MediaQuery.of(context).size;
     return SingleChildScrollView(
       child: Column(
@@ -43,9 +44,9 @@ class Body extends StatelessWidget {
                           ),
                         ),
                       ),
-                      CounterWithFavorite(
-                        id: loadedProduct.id,                        
-                      ),
+                      // CounterWithFavorite(
+                      //   id: loadedProduct.id,                        
+                      // ),
                       AddToCart(
                         id: loadedProduct.id,
                         price: loadedProduct.price,

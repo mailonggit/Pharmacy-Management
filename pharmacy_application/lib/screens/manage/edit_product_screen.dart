@@ -8,6 +8,8 @@ import 'package:provider/provider.dart';
 
 class EditProductScreen extends StatefulWidget {
   static const routeName = '/edit-product';
+  final isEdit;
+  EditProductScreen({this.isEdit = true});
   @override
   _EditProductScreenState createState() => _EditProductScreenState();
 }
@@ -119,7 +121,8 @@ class _EditProductScreenState extends State<EditProductScreen> {
                   actions: <Widget>[
                     FlatButton(
                       onPressed: () {
-                        Navigator.of(context).pushReplacementNamed(ManageProductScreen.routeName);
+                        Navigator.of(context).pushReplacementNamed(
+                            ManageProductScreen.routeName);
                         //Navigator.of(ctx).pop();
                       },
                       child: Text('Okey'),
@@ -132,12 +135,12 @@ class _EditProductScreenState extends State<EditProductScreen> {
         _isLoading = false;
       });
       //only pop once the data is stored
-      Navigator.of(context).pushReplacementNamed(ManageProductScreen.routeName); 
+      Navigator.of(context).pushReplacementNamed(ManageProductScreen.routeName);
     }
     setState(() {
       _isLoading = false;
     });
-    //Navigator.of(context).pop(); //only pop once the data is stored
+    Navigator.of(context).pop(); //only pop once the data is stored
   }
 
   @override
@@ -145,7 +148,7 @@ class _EditProductScreenState extends State<EditProductScreen> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.purple[900],
-        title: Text('Add Medicine'),
+        title: widget.isEdit ? Text('Edit Medicine') : Text('Add Medicine'),
         actions: <Widget>[
           IconButton(
             icon: Icon(Icons.edit),
@@ -153,7 +156,7 @@ class _EditProductScreenState extends State<EditProductScreen> {
           ),
         ],
       ),
-      drawer: AppDrawer(),
+      drawer: AppDrawer(isAdmin: true,),
       //if process finish load input form, if not, keep loading
       body: _isLoading
           ? Center(
@@ -337,11 +340,17 @@ class _EditProductScreenState extends State<EditProductScreen> {
                         SizedBox(
                           height: 25,
                         ),
-                        RoundedButton(
-                          press: _saveForm,
-                          color: Colors.purple[900],
-                          text: 'Create New Medicine',
-                        ),
+                        widget.isEdit
+                            ? RoundedButton(
+                                press: _saveForm,
+                                color: Colors.purple[900],
+                                text: 'Update Information',
+                              )
+                            : RoundedButton(
+                                press: _saveForm,
+                                color: Colors.purple[900],
+                                text: 'Create New Medicine',
+                              )
                       ],
                     ),
                   )),

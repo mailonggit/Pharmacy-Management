@@ -39,9 +39,9 @@ class Body extends StatelessWidget {
               },
             ),
             AlreadyHaveAnAccount(
-              click: () {
-                Navigator.of(context).pushReplacementNamed(SignUp.routeName);
-                ;
+              haveAccount: true,
+              press: () {
+                Navigator.of(context).pushReplacementNamed(SignUp.routeName);                
               },
             )
           ],

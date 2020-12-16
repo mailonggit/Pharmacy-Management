@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pharmacy_application/providers/auth_provider.dart';
 import 'package:pharmacy_application/providers/cart_provider.dart';
 import 'package:pharmacy_application/providers/order_provider.dart';
 import 'package:pharmacy_application/providers/product.dart';
@@ -10,6 +11,7 @@ import 'package:pharmacy_application/screens/manage/edit_product_screen.dart';
 import 'package:pharmacy_application/screens/manage/manage_product.dart';
 import 'package:pharmacy_application/screens/order/order_screen.dart';
 import 'package:pharmacy_application/screens/product_detail/product_detail.dart';
+import 'package:pharmacy_application/screens/signup/auth_screen.dart';
 import 'package:pharmacy_application/screens/signup/signup.dart';
 import 'package:pharmacy_application/screens/welcome/welcome.dart';
 import 'package:provider/provider.dart';
@@ -28,7 +30,7 @@ class _MyAppState extends State<MyApp> {
       //avoid cannot find correct provider
       providers: [
         ChangeNotifierProvider.value(
-          value: ProductProvider(),
+          value: AuthProvider(),
         ),
         ChangeNotifierProvider.value(
           value: CartProvider(),
@@ -36,23 +38,39 @@ class _MyAppState extends State<MyApp> {
         ChangeNotifierProvider.value(
           value: Product(),
         ),
-        ChangeNotifierProvider.value(
-          value: OrderProvider(),        
+        ChangeNotifierProxyProvider<AuthProvider, OrderProvider>(
+          create: null,
+          update: (ctx, auth, previousOrders) => OrderProvider(
+            auth.token,
+            previousOrders == null ? [] : previousOrders.orders,
+            auth.userId,    
+          ),
+        ),
+        ChangeNotifierProxyProvider<AuthProvider, ProductProvider>(
+          create: null,
+          update: (ctx, auth, previousProducts) => ProductProvider(
+            auth.token,
+            previousProducts == null ? [] : previousProducts.products,   
+            auth.userId,         
+          ),
         ),
       ],
-      child: MaterialApp(
-        debugShowCheckedModeBanner: false,
-        home: Welcome(),
-        routes: {
-          HomeScreen.routeName: (ctx) => HomeScreen(),
-          ProductDetail.routeName: (ctx) => ProductDetail(),
-          CartScreen.routeName: (ctx) => CartScreen(),
-          OrderScreen.routeName: (ctx) => OrderScreen(),
-          Login.routeName: (ctx) => Login(),
-          SignUp.routeName: (ctx) => SignUp(),
-          EditProductScreen.routeName: (ctx) => EditProductScreen(),
-          ManageProductScreen.routeName: (ctx) => ManageProductScreen(),
-        },
+      child: Consumer<AuthProvider>(
+        builder: (ctx, auth, _) => MaterialApp(
+          debugShowCheckedModeBanner: false,
+          home: auth.isAuth ? HomeScreen(isAdmin: auth.isAdmin) : AuthScreen(),
+          routes: {
+            HomeScreen.routeName: (ctx) => HomeScreen(),
+            ProductDetail.routeName: (ctx) => ProductDetail(),
+            CartScreen.routeName: (ctx) => CartScreen(),
+            OrderScreen.routeName: (ctx) => OrderScreen(),
+            Login.routeName: (ctx) => Login(),
+            SignUp.routeName: (ctx) => SignUp(),
+            EditProductScreen.routeName: (ctx) => EditProductScreen(),
+            ManageProductScreen.routeName: (ctx) => ManageProductScreen(),
+            AuthScreen.routeName: (ctx) => AuthScreen(),
+          },
+        ),
       ),
     );
   }

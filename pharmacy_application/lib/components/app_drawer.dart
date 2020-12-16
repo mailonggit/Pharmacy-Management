@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:pharmacy_application/providers/auth_provider.dart';
 import 'package:pharmacy_application/screens/home/home_screen.dart';
 import 'package:pharmacy_application/screens/manage/edit_product_screen.dart';
 import 'package:pharmacy_application/screens/manage/manage_product.dart';
 import 'package:pharmacy_application/screens/order/order_screen.dart';
+import 'package:provider/provider.dart';
 
 class AppDrawer extends StatelessWidget {
+  final isAdmin;
+  AppDrawer({this.isAdmin});
   @override
   Widget build(BuildContext context) {
     return Drawer(
@@ -28,7 +32,7 @@ class AppDrawer extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.only(top: 20),
                   child: Text(
-                    'Hello Mai Hoang Long',
+                    'Hello Bro',
                     style: TextStyle(color: Colors.white, fontSize: 20),
                   ),
                 ),
@@ -41,8 +45,7 @@ class AppDrawer extends StatelessWidget {
             press: () {
               Navigator.of(context).pushReplacementNamed(HomeScreen.routeName);
             },
-          ),          
-          Divider(),
+          ),     
           SelectionTile(
             icon: Icons.shopping_cart,
             text: 'Your Order',
@@ -50,27 +53,41 @@ class AppDrawer extends StatelessWidget {
               Navigator.of(context).pushReplacementNamed(OrderScreen.routeName);
             },
           ),
-          Divider(),
-          SelectionTile(
-            icon: Icons.add_box,
-            text: 'Create Product',
-            press: () {
-              Navigator.of(context).pushReplacementNamed(EditProductScreen.routeName);
-            },
-          ),
-          Divider(),
-          SelectionTile(
-            icon: Icons.settings,
-            text: 'Manage Medicine',
-            press: () {
-              Navigator.of(context).pushReplacementNamed(ManageProductScreen.routeName);
-            },
-          ),
-          Divider(),
+          
+          isAdmin
+              ? SelectionTile(
+                  icon: Icons.add_box,
+                  text: 'Create Product',
+                  press: () {
+                    // Navigator.of(context)
+                    //     .pushReplacementNamed(EditProductScreen.routeName);
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => EditProductScreen(
+                                  isEdit: false,
+                                )));
+                  },
+                )
+              : SizedBox(height: 1),
+          isAdmin
+              ? SelectionTile(
+                  icon: Icons.settings,
+                  text: 'Manage Medicine',
+                  press: () {
+                    Navigator.of(context)
+                        .pushReplacementNamed(ManageProductScreen.routeName);
+                  },
+                )
+              : SizedBox(height: 1),
           SelectionTile(
             icon: Icons.lock,
             text: 'Log Out',
-            press: () {},
+            press: () {
+              Navigator.of(context).pop();
+              Navigator.of(context).pushReplacementNamed('/');
+              Provider.of<AuthProvider>(context, listen: false).logout();
+            },
           ),
         ],
       ),
@@ -91,17 +108,23 @@ class SelectionTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListTile(
-      leading: Icon(
-        this.icon,
-        color: Colors.black,
-      ),
-      title: Text(
-        this.text,
-        textAlign: TextAlign.left,
-        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
-      ),
-      onTap: this.press,
+    return Column(
+      children: <Widget>[
+        
+        ListTile(
+          leading: Icon(
+            this.icon,
+            color: Colors.black,
+          ),
+          title: Text(
+            this.text,
+            textAlign: TextAlign.left,
+            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+          ),
+          onTap: this.press,
+        ),
+        
+      ],
     );
   }
 }

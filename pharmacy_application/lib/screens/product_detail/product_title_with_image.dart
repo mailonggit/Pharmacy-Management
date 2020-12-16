@@ -49,7 +49,7 @@ class ProductTitleWithImage extends StatelessWidget {
                 width: 80,
               ),
               Expanded(
-                  child: Image.asset(
+                  child: Image.network(
                 loadedProduct.image,
                 fit: BoxFit.fitWidth,
                 width: 100,

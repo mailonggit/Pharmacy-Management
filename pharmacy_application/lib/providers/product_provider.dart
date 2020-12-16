@@ -4,6 +4,9 @@ import 'package:pharmacy_application/providers/product.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
+const String dummyDescription =
+    'Medicine is the science and practice of establishing the diagnosis, prognosis, treatment, and prevention of disease. Medicine encompasses a variety of health care practices evolved to maintain and restore health by the prevention and treatment of illness.';
+
 class ProductProvider with ChangeNotifier {
   List<Product> _products = [
     // Product(
@@ -42,6 +45,10 @@ class ProductProvider with ChangeNotifier {
     //       'https://lewishoanglong.com/wp-content/uploads/2020/12/medicine-5.png',
     // ),
   ];
+
+  final String token;
+  final String userId;
+  ProductProvider(this.token, this._products, this.userId);
   List<Product> get favoriteItems {
     return _products.where((prodItem) => prodItem.isFavorite).toList();
   }
@@ -54,26 +61,25 @@ class ProductProvider with ChangeNotifier {
     return _products.firstWhere((product) => product.id == id);
   }
 
-  Future<void> fetchAndSetProducts() async {
-    const url =
-        'https://pharmacy-management-36ca9-default-rtdb.firebaseio.com/products.json';
-
+  Future<void> fetchAndSetProducts([bool filterByUser = false]) async {    
+    var url =
+        'https://pharmacy-management-36ca9-default-rtdb.firebaseio.com/products.json?auth=$token';
+    print(url);
     try {
       print('loaded');
       final response = await http.get(url);
       final extractedData = json.decode(response.body) as Map<String, dynamic>;
       if (extractedData == null) {
         return;
-      }
+      }       
       final List<Product> loadedProducts = [];
       extractedData.forEach((prodId, prodData) {
         loadedProducts.add(Product(
           id: prodId,
           title: prodData['title'],
           description: prodData['description'],
-          price: prodData['price'],
-          //isFavorite: prodData['isFavorite'],
-          image: prodData['image'],
+          price: prodData['price'],          
+          image: prodData['image'],       
         ));
       });
       _products = loadedProducts;
@@ -85,8 +91,8 @@ class ProductProvider with ChangeNotifier {
 
   //don't need to return future because async will return future automatically
   Future<void> addProduct(Product product) async {
-    const url =
-        'https://pharmacy-management-36ca9-default-rtdb.firebaseio.com/products.json';
+    final url =
+        'https://pharmacy-management-36ca9-default-rtdb.firebaseio.com/products.json?auth=$token';
     //wait until this code finish
     try {
       final response = await http.post(url,
@@ -96,6 +102,7 @@ class ProductProvider with ChangeNotifier {
             'image': product.image,
             'price': product.price,
             'isFavorite': product.isFavorite,
+            'createId' : userId,
           }));
       final newProduct = Product(
         title: product.title,
@@ -104,8 +111,7 @@ class ProductProvider with ChangeNotifier {
         image: product.image,
         id: json.decode(response.body)['name'],
       );
-      _products.add(newProduct);
-      print('id: ' + json.decode(response.body)['name'].toString());
+      _products.add(newProduct);      
       notifyListeners();
     } catch (error) {
       print(error);
@@ -117,7 +123,7 @@ class ProductProvider with ChangeNotifier {
     final prodIndex = _products.indexWhere((prod) => prod.id == id);
     if (prodIndex >= 0) {
       final url =
-          'https://pharmacy-management-36ca9-default-rtdb.firebaseio.com/$id.json';
+          'https://pharmacy-management-36ca9-default-rtdb.firebaseio.com/products/$id.json?auth=$token';
       await http.patch(url,
           body: json.encode({
             'title': newProduct.title,
@@ -135,7 +141,7 @@ class ProductProvider with ChangeNotifier {
 
   Future<void> deleteProduct(String id) async {
     final url =
-        'https://pharmacy-management-36ca9-default-rtdb.firebaseio.com/$id.json';
+        'https://pharmacy-management-36ca9-default-rtdb.firebaseio.com/products/$id.json?auth=$token';
     print('id: ' + id.toString());
     final existingProductIndex = _products.indexWhere((prod) => prod.id == id);
     var existingProduct = _products[existingProductIndex];

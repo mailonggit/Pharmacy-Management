@@ -1,4 +1,6 @@
 import 'package:flutter/cupertino.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
 class Product with ChangeNotifier {
   final String id;
@@ -7,7 +9,7 @@ class Product with ChangeNotifier {
   final double price;
   final String image;
   int quantity;
-  bool isFavorite;
+  bool isFavorite = false;
   Product({
     this.id,
     this.title,
@@ -15,7 +17,7 @@ class Product with ChangeNotifier {
     this.price,
     this.image,
     this.quantity = 1,
-    this.isFavorite = false,
+    this.isFavorite,
   });
 
   void _setFavoriteStatus(bool status) {
@@ -28,12 +30,11 @@ class Product with ChangeNotifier {
     notifyListeners();
   }
 
-  void toggleFavoriteStatus() {
-    //final oldStatus = this.isFavorite; //store previous favorite status
+  void toggleFavoriteStatus(){    
     this.isFavorite = !this
-        .isFavorite; //update new status after user clicking the favorite icon
-    //_setFavoriteStatus(!this.isFavorite);
+        .isFavorite; //update new status after user clicking the favorite icon   
     notifyListeners();
+
   }
 }
 
