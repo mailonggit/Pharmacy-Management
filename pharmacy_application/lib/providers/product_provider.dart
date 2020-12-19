@@ -1,6 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:pharmacy_application/providers/http_exception.dart';
-import 'package:pharmacy_application/providers/product.dart';
+import 'package:pharmacy_application/models/product.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
@@ -47,8 +47,7 @@ class ProductProvider with ChangeNotifier {
   ];
 
   final String token;
-  final String userId;
-  ProductProvider(this.token, this._products, this.userId);
+  ProductProvider(this.token, this._products);
   List<Product> get favoriteItems {
     return _products.where((prodItem) => prodItem.isFavorite).toList();
   }
@@ -61,7 +60,7 @@ class ProductProvider with ChangeNotifier {
     return _products.firstWhere((product) => product.id == id);
   }
 
-  Future<void> fetchAndSetProducts([bool filterByUser = false]) async {    
+  Future<void> fetchAndSetProducts() async {
     var url =
         'https://pharmacy-management-36ca9-default-rtdb.firebaseio.com/products.json?auth=$token';
     print(url);
@@ -71,15 +70,15 @@ class ProductProvider with ChangeNotifier {
       final extractedData = json.decode(response.body) as Map<String, dynamic>;
       if (extractedData == null) {
         return;
-      }       
+      }
       final List<Product> loadedProducts = [];
       extractedData.forEach((prodId, prodData) {
         loadedProducts.add(Product(
           id: prodId,
           title: prodData['title'],
           description: prodData['description'],
-          price: prodData['price'],          
-          image: prodData['image'],       
+          price: prodData['price'],
+          image: prodData['image'],
         ));
       });
       _products = loadedProducts;
@@ -92,18 +91,19 @@ class ProductProvider with ChangeNotifier {
   //don't need to return future because async will return future automatically
   Future<void> addProduct(Product product) async {
     final url =
-        'https://pharmacy-management-36ca9-default-rtdb.firebaseio.com/products.json?auth=$token';
-    //wait until this code finish
+        'https://pharmacy-management-36ca9-default-rtdb.firebaseio.com/products.json?auth=$token';    
     try {
-      final response = await http.post(url,
-          body: json.encode({
+      final response = await http.post(
+        url,
+        body: json.encode(
+          {
             'title': product.title,
             'description': product.description,
             'image': product.image,
-            'price': product.price,
-            'isFavorite': product.isFavorite,
-            'createId' : userId,
-          }));
+            'price': product.price,            
+          },
+        ),
+      );
       final newProduct = Product(
         title: product.title,
         description: product.description,
@@ -111,7 +111,7 @@ class ProductProvider with ChangeNotifier {
         image: product.image,
         id: json.decode(response.body)['name'],
       );
-      _products.add(newProduct);      
+      _products.add(newProduct);
       notifyListeners();
     } catch (error) {
       print(error);
@@ -124,13 +124,17 @@ class ProductProvider with ChangeNotifier {
     if (prodIndex >= 0) {
       final url =
           'https://pharmacy-management-36ca9-default-rtdb.firebaseio.com/products/$id.json?auth=$token';
-      await http.patch(url,
-          body: json.encode({
+      await http.patch(
+        url,
+        body: json.encode(
+          {
             'title': newProduct.title,
             'description': newProduct.description,
             'image': newProduct.image,
             'price': newProduct.price,
-          }));
+          },
+        ),
+      );
       _products[prodIndex] = newProduct;
       print('update successfully');
       notifyListeners();
@@ -141,9 +145,8 @@ class ProductProvider with ChangeNotifier {
 
   Future<void> deleteProduct(String id) async {
     final url =
-        'https://pharmacy-management-36ca9-default-rtdb.firebaseio.com/products/$id.json?auth=$token';
-    print('id: ' + id.toString());
-    final existingProductIndex = _products.indexWhere((prod) => prod.id == id);
+        'https://pharmacy-management-36ca9-default-rtdb.firebaseio.com/products/$id.json?auth=$token';    
+    final existingProductIndex = _products.indexWhere((prod) => prod.id == id); 
     var existingProduct = _products[existingProductIndex];
     _products.removeAt(existingProductIndex);
     notifyListeners();

@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:pharmacy_application/components/cart_counter.dart';
 import 'package:pharmacy_application/providers/cart_provider.dart';
 import 'package:provider/provider.dart';
 
-class CartItem extends StatelessWidget {
+class SingleCart extends StatelessWidget {
   final String id;
   final String productId;
   final String title;
@@ -11,7 +10,7 @@ class CartItem extends StatelessWidget {
   final double price;
   final String image;
 
-  const CartItem({
+  const SingleCart({
     Key key,
     this.id,
     this.productId,

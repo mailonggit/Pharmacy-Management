@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:pharmacy_application/components/counter_with_favorite_button.dart';
 import 'package:pharmacy_application/providers/product_provider.dart';
 import 'package:pharmacy_application/screens/product_detail/add_to_cart.dart';
 import 'package:pharmacy_application/screens/product_detail/product_title_with_image.dart';

@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:pharmacy_application/components/app_drawer.dart';
-import 'package:pharmacy_application/components/badge.dart';
+import 'package:pharmacy_application/widgets/app_drawer.dart';
+import 'package:pharmacy_application/widgets/badge.dart';
 import 'package:pharmacy_application/providers/cart_provider.dart';
-import 'package:pharmacy_application/providers/product_provider.dart';
 import 'package:pharmacy_application/screens/cart/cart_screen.dart';
 import 'package:pharmacy_application/screens/home/body.dart';
 import 'package:provider/provider.dart';

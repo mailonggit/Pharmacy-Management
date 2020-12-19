@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:pharmacy_application/components/app_drawer.dart';
+import 'package:pharmacy_application/widgets/app_drawer.dart';
 import 'package:pharmacy_application/providers/product_provider.dart';
-import 'package:pharmacy_application/screens/manage/edit_product_screen.dart';
-import 'package:pharmacy_application/screens/manage/user_product_item.dart';
+import 'package:pharmacy_application/screens/manage/single_item.dart';
 import 'package:provider/provider.dart';
 
 class ManageProductScreen extends StatelessWidget {
@@ -29,7 +28,7 @@ class ManageProductScreen extends StatelessWidget {
                   children: <Widget>[
                     Padding(
                       padding: const EdgeInsets.all(8.0),
-                      child: UserProductItem(
+                      child: SingleItem(
                         id: productData.products[i].id,
                         title: productData.products[i].title,
                         image: productData.products[i].image,

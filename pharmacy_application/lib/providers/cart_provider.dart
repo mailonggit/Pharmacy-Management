@@ -1,24 +1,12 @@
 import 'package:flutter/foundation.dart';
+import 'package:pharmacy_application/models/cart.dart';
 
-class CartItem {
-  final String id;
-  final String title;
-  final int quantity;
-  final double price;
-  final String image;
-  CartItem({
-    @required this.id,
-    @required this.title,
-    @required this.quantity,
-    @required this.price,
-    this.image,
-  });
-}
+
 
 class CartProvider with ChangeNotifier {
-  Map<String, CartItem> _items = {};
+  Map<String, Cart> _items = {};
 
-  Map<String, CartItem> get items {
+  Map<String, Cart> get items {
     return {..._items};
   }
 
@@ -43,7 +31,7 @@ class CartProvider with ChangeNotifier {
       print('update product');
       _items.update(
           productId,
-          (existingItem) => CartItem(
+          (existingItem) => Cart(
                 id: existingItem.id,
                 title: existingItem.title,
                 quantity: newQuantity + 1,
@@ -54,7 +42,7 @@ class CartProvider with ChangeNotifier {
       print('add new product');
       _items.putIfAbsent(
         productId,
-        () => CartItem(
+        () => Cart(
           id: DateTime.now().toString(),
           title: title,
           price: price,

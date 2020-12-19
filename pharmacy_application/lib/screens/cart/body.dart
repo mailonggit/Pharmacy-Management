@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pharmacy_application/providers/cart_provider.dart'
     show CartProvider;
-import 'package:pharmacy_application/screens/cart/cart_item.dart';
+import 'package:pharmacy_application/screens/cart/single_cart.dart';
 import 'package:pharmacy_application/screens/cart/order_button.dart';
 import 'package:provider/provider.dart';
 
@@ -39,7 +39,7 @@ class Body extends StatelessWidget {
               scrollDirection: Axis.vertical,
               shrinkWrap: true,
               itemCount: cart.items.length,
-              itemBuilder: (ctx, i) => CartItem(
+              itemBuilder: (ctx, i) => SingleCart(
                 id: cart.items.values.toList()[i].id,
                 productId: cart.items.keys.toList()[i],
                 title: cart.items.values.toList()[i].title,

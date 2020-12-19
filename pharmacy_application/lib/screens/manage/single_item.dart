@@ -3,9 +3,9 @@ import 'package:pharmacy_application/providers/product_provider.dart';
 import 'package:pharmacy_application/screens/manage/edit_product_screen.dart';
 import 'package:provider/provider.dart';
 
-class UserProductItem extends StatelessWidget {
+class SingleItem extends StatelessWidget {
   final String id, title, image;
-  UserProductItem({this.id, this.title, this.image});
+  SingleItem({this.id, this.title, this.image});
 
   @override
   Widget build(BuildContext context) {

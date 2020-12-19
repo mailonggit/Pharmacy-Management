@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:pharmacy_application/components/app_drawer.dart';
-import 'package:pharmacy_application/components/rounded_button.dart';
-import 'package:pharmacy_application/providers/product.dart';
+import 'package:pharmacy_application/widgets/app_drawer.dart';
+import 'package:pharmacy_application/widgets/rounded_button.dart';
+import 'package:pharmacy_application/models/product.dart';
 import 'package:pharmacy_application/providers/product_provider.dart';
-import 'package:pharmacy_application/screens/manage/manage_product.dart';
 import 'package:provider/provider.dart';
 
 class EditProductScreen extends StatefulWidget {
@@ -121,26 +120,20 @@ class _EditProductScreenState extends State<EditProductScreen> {
                   actions: <Widget>[
                     FlatButton(
                       onPressed: () {
-                        Navigator.of(context).pushReplacementNamed(
-                            ManageProductScreen.routeName);
-                        //Navigator.of(ctx).pop();
+                        //Navigator.of(context).pushReplacementNamed(
+                        //HomeScreen.routeName);
+                        Navigator.of(ctx).pop();
                       },
                       child: Text('Okey'),
                     ),
                   ],
                 ));
       } finally {}
-
-      setState(() {
-        _isLoading = false;
-      });
-      //only pop once the data is stored
-      Navigator.of(context).pushReplacementNamed(ManageProductScreen.routeName);
     }
     setState(() {
       _isLoading = false;
     });
-    Navigator.of(context).pop(); //only pop once the data is stored
+    Navigator.of(context).pop();
   }
 
   @override
@@ -156,7 +149,9 @@ class _EditProductScreenState extends State<EditProductScreen> {
           ),
         ],
       ),
-      drawer: AppDrawer(isAdmin: true,),
+      drawer: AppDrawer(
+        isAdmin: true,
+      ),
       //if process finish load input form, if not, keep loading
       body: _isLoading
           ? Center(

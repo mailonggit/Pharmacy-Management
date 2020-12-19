@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:pharmacy_application/components/cart_counter.dart';
-import 'package:pharmacy_application/components/favorite_button.dart';
+import 'package:pharmacy_application/widgets/cart_counter.dart';
+import 'package:pharmacy_application/widgets/favorite_button.dart';
 import 'package:pharmacy_application/providers/product_provider.dart';
 import 'package:provider/provider.dart';
 

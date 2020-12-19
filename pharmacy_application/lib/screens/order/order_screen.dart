@@ -1,30 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:pharmacy_application/components/app_drawer.dart';
 import 'package:pharmacy_application/providers/order_provider.dart'
     show OrderProvider;
-import 'package:pharmacy_application/screens/order/order_item.dart';
+import 'package:pharmacy_application/screens/home/home_screen.dart';
+import 'package:pharmacy_application/screens/order/single_order.dart';
 import 'package:provider/provider.dart';
 
 class OrderScreen extends StatelessWidget {
   static const routeName = '/orders';
 
-//   @override
-//   _OrderScreenState createState() => _OrderScreenState();
-// }
-
-// class _OrderScreenState extends State<OrderScreen> {
-//   Future _orderFuture;
-
-//   Future _obtainOrderFuture() {
-//     return Provider.of<OrderProvider>(context, listen: false)
-//         .fetchAndSetOrders();
-//   }
-
-//   @override
-//   void initState() {
-//     _orderFuture = _obtainOrderFuture();
-//     super.initState();
-//   }
 
   @override
   Widget build(BuildContext context) {
@@ -36,8 +19,15 @@ class OrderScreen extends StatelessWidget {
         ),
         backgroundColor: Colors.blue[900],
         centerTitle: true,
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back, color: Colors.white,),
+          onPressed: () {
+            Navigator.of(context).pushNamed(HomeScreen.routeName);
+          },
+          color: Colors.black,
+        ),
       ),
-      drawer: AppDrawer(),
+      //drawer: AppDrawer(),
       body: FutureBuilder(
         future: Provider.of<OrderProvider>(context, listen: false).fetchAndSetOrders(),
         builder: (_, dataSnapshot) {
@@ -49,7 +39,7 @@ class OrderScreen extends StatelessWidget {
             return Consumer<OrderProvider>(
               builder: (ctx, orderData, child) => ListView.builder(
                 itemCount: orderData.orders.length,
-                itemBuilder: (ctx, i) => OrderItem(orderData.orders[i], i + 1),
+                itemBuilder: (ctx, i) => SingleOrder(orderData.orders[i], i + 1),
               ),
             );
           }

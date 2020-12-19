@@ -11,13 +11,17 @@ class AuthProvider with ChangeNotifier {
   DateTime _expiryDate;
   String _userId;
   Timer _authTimer;
-  String email;
+  String _email;
   bool get isAuth {
     return _token != null;
   }
 
+  String get email {
+    return this._email;
+  }
+
   bool get isAdmin {
-    if (email.contains('admin')) {
+    if (_email.contains('admin')) {
       return true;
     }
     return false;
@@ -38,8 +42,8 @@ class AuthProvider with ChangeNotifier {
 
   Future<void> _authentication(
       String email, String password, String urlSegment) async {
-    this.email = email;
-    print(this.email);
+    this._email = email;
+    print(this._email);
     final url =
         'https://identitytoolkit.googleapis.com/v1/accounts:$urlSegment?key=AIzaSyBxI7_xMBQg8bQJnEwnVwofiibWWe-lBa4';
     try {

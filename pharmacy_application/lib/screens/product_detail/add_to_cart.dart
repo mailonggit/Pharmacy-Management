@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pharmacy_application/providers/cart_provider.dart';
 import 'package:pharmacy_application/providers/order_provider.dart';
-import 'package:pharmacy_application/providers/product.dart';
 import 'package:provider/provider.dart';
 
 class AddToCart extends StatelessWidget {

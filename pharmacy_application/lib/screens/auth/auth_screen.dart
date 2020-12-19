@@ -1,8 +1,6 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
-import 'package:pharmacy_application/components/already_have_an_account.dart';
 import 'package:pharmacy_application/providers/auth_provider.dart';
+import 'package:pharmacy_application/providers/user_provider.dart';
 import 'package:pharmacy_application/screens/home/home_screen.dart';
 import 'package:provider/provider.dart';
 import 'package:pharmacy_application/providers/http_exception.dart';
@@ -32,8 +30,8 @@ class AuthScreen extends StatelessWidget {
                     child: Container(
                       height: 200,
                       width: 200,
-                      child: Image.asset(
-                        'assets/images/doctor_other.png',
+                      child: Image.network(
+                        'https://lewishoanglong.com/wp-content/uploads/2020/12/doctor_other.png',
                         fit: BoxFit.cover,
                       ),
                     ),
@@ -107,11 +105,13 @@ class _AuthCardState extends State<AuthCard> {
         );
         if (_authData['email'].contains('admin'))
           Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (context) => HomeScreen(
-                        isAdmin: true,
-                      )));
+            context,
+            MaterialPageRoute(
+              builder: (context) => HomeScreen(
+                isAdmin: true,
+              ),
+            ),
+          );
         else {
           Navigator.of(context).pushReplacementNamed(HomeScreen.routeName);
         }
@@ -121,6 +121,7 @@ class _AuthCardState extends State<AuthCard> {
           _authData['email'],
           _authData['password'],
         );
+        print('signup successfully');     
       }
     } on HttpException catch (error) {
       var errorMessage = 'Authentication failed';
@@ -208,20 +209,6 @@ class _AuthCardState extends State<AuthCard> {
                   },
                 ),
                 if (_authMode == AuthMode.Signup)
-                  //your full name
-                  // TextFormField(
-                  //   decoration: InputDecoration(labelText: 'Your Full Name'),
-                  //   keyboardType: TextInputType.emailAddress,
-                  //   //verify email
-                  //   validator: (value) {
-                  //     if (value.isEmpty) {
-                  //       return 'Invalid name!';
-                  //     }
-                  //   },
-                  //   onSaved: (value) {
-                  //     //_authData['email'] = value;
-                  //   },
-                  // ),
                   TextFormField(
                     enabled: _authMode == AuthMode.Signup,
                     decoration: InputDecoration(labelText: 'Confirm Password'),
@@ -243,13 +230,15 @@ class _AuthCardState extends State<AuthCard> {
                   RaisedButton(
                     child:
                         Text(_authMode == AuthMode.Login ? 'LOGIN' : 'SIGN UP'),
-                    onPressed: _submit,
+                    onPressed: () {
+                      return _submit();
+                    },
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(30),
-                    ),
+                    ),                  
                     padding:
                         EdgeInsets.symmetric(horizontal: 30.0, vertical: 8.0),
-                    color: Theme.of(context).primaryColor,
+                    color: Colors.blue[500],
                     textColor: Theme.of(context).primaryTextTheme.button.color,
                   ),
                 SizedBox(
@@ -280,26 +269,6 @@ class _AuthCardState extends State<AuthCard> {
                     ],
                   ),
                 ),
-
-                // FlatButton(
-                //   child: Row(
-                //     children: <Widget>[
-                //       Text(_authMode == AuthMode.Login
-                //           ? 'Don\'t have an account!'
-                //           : 'Already have an account'),
-                //       Text(
-                //         _authMode == AuthMode.Login ? 'Sign Up' : 'Login',
-                //         style: TextStyle(
-                //           fontWeight: FontWeight.bold,
-                //           fontSize: 20,
-                //         ),
-                //       ),
-                //     ],
-                //   ),
-                //   onPressed: _switchAuthMode,
-                //   padding: EdgeInsets.symmetric(horizontal: 30.0, vertical: 4),
-                //   materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                // ),
               ],
             ),
           ),

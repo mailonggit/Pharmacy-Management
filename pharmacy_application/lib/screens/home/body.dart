@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pharmacy_application/providers/product_provider.dart';
-import 'package:pharmacy_application/screens/product_detail/product_detail.dart';
-import 'package:pharmacy_application/screens/home/product_item.dart';
+import 'package:pharmacy_application/screens/home/single_product.dart';
 import 'package:provider/provider.dart';
 
 class Body extends StatefulWidget {
@@ -65,7 +64,7 @@ class _BodyState extends State<Body> {
                     //fix a product was used after being disposed
                     itemBuilder: (ctx, i) => ChangeNotifierProvider.value(
                       value: products[i],
-                      child: ProductItem(),
+                      child: SingleProduct(),
                     ),
                     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: 2,

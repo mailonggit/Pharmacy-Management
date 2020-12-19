@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:pharmacy_application/screens/signup/auth_screen.dart';
 
 class AlreadyHaveAnAccount extends StatelessWidget {
   final Function press;

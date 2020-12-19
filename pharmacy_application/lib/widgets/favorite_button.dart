@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:pharmacy_application/providers/auth_provider.dart';
-import 'package:pharmacy_application/providers/product.dart';
-import 'package:provider/provider.dart';
+import 'package:pharmacy_application/models/product.dart';
 
 class FavoriteButton extends StatefulWidget {
   const FavoriteButton({
@@ -28,7 +26,7 @@ class _FavoriteButtonState extends State<FavoriteButton> {
       onPressed: () {
         setState(() {
           //update status
-          widget.loadedProduct.toggleFavoriteStatus();
+         // widget.loadedProduct.toggleFavoriteStatus();
         });
       },
       iconSize: 40,

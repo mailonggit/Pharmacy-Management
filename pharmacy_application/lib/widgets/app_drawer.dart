@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:pharmacy_application/providers/auth_provider.dart';
-import 'package:pharmacy_application/screens/home/home_screen.dart';
 import 'package:pharmacy_application/screens/manage/edit_product_screen.dart';
 import 'package:pharmacy_application/screens/manage/manage_product.dart';
 import 'package:pharmacy_application/screens/order/order_screen.dart';
+import 'package:pharmacy_application/screens/user/user_screen.dart';
 import 'package:provider/provider.dart';
 
 class AppDrawer extends StatelessWidget {
@@ -11,6 +11,7 @@ class AppDrawer extends StatelessWidget {
   AppDrawer({this.isAdmin});
   @override
   Widget build(BuildContext context) {
+    final authData = Provider.of<AuthProvider>(context);
     return Drawer(
       child: ListView(
         children: <Widget>[
@@ -32,7 +33,7 @@ class AppDrawer extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.only(top: 20),
                   child: Text(
-                    'Hello Bro',
+                    'Hello ${authData.email}',
                     style: TextStyle(color: Colors.white, fontSize: 20),
                   ),
                 ),
@@ -43,9 +44,9 @@ class AppDrawer extends StatelessWidget {
             icon: Icons.shop,
             text: 'Shop',
             press: () {
-              Navigator.of(context).pushReplacementNamed(HomeScreen.routeName);
+              Navigator.of(context).pushReplacementNamed('/');
             },
-          ),     
+          ),
           SelectionTile(
             icon: Icons.shopping_cart,
             text: 'Your Order',
@@ -53,7 +54,6 @@ class AppDrawer extends StatelessWidget {
               Navigator.of(context).pushReplacementNamed(OrderScreen.routeName);
             },
           ),
-          
           isAdmin
               ? SelectionTile(
                   icon: Icons.add_box,
@@ -62,11 +62,13 @@ class AppDrawer extends StatelessWidget {
                     // Navigator.of(context)
                     //     .pushReplacementNamed(EditProductScreen.routeName);
                     Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => EditProductScreen(
-                                  isEdit: false,
-                                )));
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => EditProductScreen(
+                          isEdit: false,
+                        ),
+                      ),
+                    );
                   },
                 )
               : SizedBox(height: 1),
@@ -80,6 +82,16 @@ class AppDrawer extends StatelessWidget {
                   },
                 )
               : SizedBox(height: 1),
+              // isAdmin
+              // ? SelectionTile(
+              //     icon: Icons.person,
+              //     text: 'Manage User',
+              //     press: () {
+              //       Navigator.of(context)
+              //           .pushReplacementNamed(UserScreen.routeName);
+              //     },
+              //   )
+              // : SizedBox(height: 1),
           SelectionTile(
             icon: Icons.lock,
             text: 'Log Out',
@@ -110,7 +122,6 @@ class SelectionTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: <Widget>[
-        
         ListTile(
           leading: Icon(
             this.icon,
@@ -123,7 +134,6 @@ class SelectionTile extends StatelessWidget {
           ),
           onTap: this.press,
         ),
-        
       ],
     );
   }

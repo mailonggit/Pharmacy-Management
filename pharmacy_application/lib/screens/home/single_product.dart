@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:pharmacy_application/providers/cart_provider.dart';
-import 'package:pharmacy_application/providers/product.dart';
-import 'package:pharmacy_application/providers/product_provider.dart';
+import 'package:pharmacy_application/models/product.dart';
 import 'package:pharmacy_application/screens/product_detail/product_detail.dart';
 import 'package:provider/provider.dart';
 
-class ProductItem extends StatelessWidget {
+class SingleProduct extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {

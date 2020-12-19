@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/material.dart' as prefix0;
-import 'package:pharmacy_application/providers/product.dart';
+import 'package:pharmacy_application/models/product.dart';
 
 class CartCounter extends StatefulWidget {
   final Product loadedProduct;
@@ -24,7 +23,7 @@ class _CartCounterState extends State<CartCounter> {
             if (numberOfItem > 1) {
               setState(() {
                 numberOfItem--;
-                widget.loadedProduct.setQuantity(numberOfItem);
+                //widget.loadedProduct.setQuantity(numberOfItem);
                 print('quantity: ' + widget.loadedProduct.quantity.toString());
               });
             }
@@ -43,7 +42,7 @@ class _CartCounterState extends State<CartCounter> {
           buildOutlineButton(Icons.add, () {
             setState(() {
               numberOfItem++;
-              widget.loadedProduct.setQuantity(numberOfItem);
+             // widget.loadedProduct.setQuantity(numberOfItem);
               print('quantity: ' + widget.loadedProduct.quantity.toString());
             });
           }),

@@ -2,18 +2,18 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:pharmacy_application/providers/order_provider.dart' as ord;
+import 'package:pharmacy_application/models/order.dart';
 
-class OrderItem extends StatefulWidget {
-  final ord.OrderItem order;
+class SingleOrder extends StatefulWidget {
+  final Order order;
   final int orderNumber;
-  OrderItem(this.order, this.orderNumber);
+  SingleOrder(this.order, this.orderNumber);
 
   @override
-  _OrderItemState createState() => _OrderItemState();
+  _SingleOrderState createState() => _SingleOrderState();
 }
 
-class _OrderItemState extends State<OrderItem> {
+class _SingleOrderState extends State<SingleOrder> {
   var _expanded = false;
   @override
   Widget build(BuildContext context) {

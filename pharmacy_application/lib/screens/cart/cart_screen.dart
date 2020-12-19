@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:pharmacy_application/providers/order_provider.dart';
 import 'package:pharmacy_application/screens/cart/body.dart';
-import 'package:provider/provider.dart';
 
 
 class CartScreen extends StatelessWidget {
